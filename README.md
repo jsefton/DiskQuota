@@ -10,8 +10,8 @@ on VPS's or Local Machines.
 =====================================================
 Usuage
 
-<code>
-$path_name = realpath(dirname(__FILE__));
+<pre>
+$path_name = realpath(dirname(__FILE__)); 
 $maximum_quota = 1000;
 
 $quota = DiskQuota::get_quota($path_name, $maximum_quota);
@@ -30,7 +30,7 @@ Array
 $free_space = $quota['free_space'];
 $used_space = $quota['used_space'];
 $percentage_used = $quota['percentage'];
-</code>
+</pre>
 =====================================================
 
 Other used for percentage can be used for a CSS progress bar by simply making 
@@ -41,6 +41,7 @@ within in .css file.
 For example.
 
 Example CSS code:
+<pre>
 #quota_bar{
     width: 100%;
     height: 20px;
@@ -52,7 +53,10 @@ Example CSS code:
     background-color: #b6f4b9;
     height: 20px;
 }
-
+</pre>
 Example HTML code:
+```html
+<div id="quota_bar">
+    <div></div>
+</div>
 
-<div id="quota_bar"><div></div></div>
