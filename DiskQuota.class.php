@@ -4,7 +4,7 @@
  *
  * Used to generate statistics based on the folder directory and amount of files stored within.
  * 
- * Usuage Example
+ * Usage Example
  *
  * DiskQuota::get_quota(dirname(__FILE__), 1000);
  * Which is passing the current file directory of the file and setting the maximum size allowed to 1000MB / 1GB.
