@@ -14,9 +14,96 @@
  * @version		1.1
  * @date		16/03/2014
  *
+ * @since		1.1				Can now create an instance and add in multiple paths if you wish. If not, then use old way.
  */
 class DiskQuota
 {
+	
+	protected $paths = array();
+	protected $limit = 1000;
+	
+	/*
+	 *	Init
+	 *
+	 * @since	1.1
+	 *
+	 * @return	void
+	 */
+	public function init()
+	{
+		return new self;	
+	}
+	
+	/*
+	 *	Add Path
+	 *
+	 * @since	1.1
+	 *
+	 * @param	string	$path 		path which will be scanned
+	 * @return	void
+	 */
+	public function add_path($path)
+	{
+		/*** Check to make sure the path is a directory ***/
+		if(is_dir($path))
+			$this->paths[] = $path;
+			
+		return $this;	
+	}
+	
+	/*
+	 *	Set Maximum Quota
+	 *
+	 * @since	1.1
+	 *
+	 * @param	int		$limit 		Maximum size of quota
+	 * @return	void
+	 */
+	public function set_maximum_quota($limit)
+	{
+		/*** Check to make sure that limit is an integer ***/
+		if(is_int($limit))
+			$this->limit = $limit;
+			
+		return $this;	
+	}
+	
+	
+	/*
+	 *	Get Quota Results
+	 *
+	 * @since	1.1
+	 *
+	 * @return	array	$data		Includes summary of usuage, free, total and percentage
+	 */
+	public function get_quota_results()
+	{
+		if($this->paths)
+		{
+			$disk_limit = $this->limit;
+			
+			$total = (1024 * 1024 * $disk_limit);
+			$used = 0;
+			$free = 0;
+			foreach($this->paths as $path)
+			{
+				$used += self::get_used($path, $disk_limit);
+				$free += self::get_free_space($path, $disk_limit);
+			}
+			
+			$data = array(
+				'directories'	=>	$this->paths,
+				'free_space'	=>	($disk_limit == 0) ? 'UNLIMITED' : self::format_bytes($free),
+				'used_space'	=>	self::format_bytes($used),
+				'total'			=>	($disk_limit == 0) ? 'UNLIMITED' : self::format_bytes($total),
+				'percentage'	=>	($disk_limit == 0) ? 0 : round($used / $total, 2) * 100
+			);
+			return (array) $data;
+		}
+		else
+			return false;
+	}
+	
 	/*
 	 *	Get Quota
 	 *
