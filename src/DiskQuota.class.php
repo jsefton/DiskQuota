@@ -11,7 +11,7 @@
  *
  *
  * @author		Jamie Sefton
- * @version		1.0
+ * @version		1.1
  * @date		16/03/2014
  *
  */
@@ -131,7 +131,6 @@ class DiskQuota
 		
 		return $converted;
 	}
-	
 	
 }
 ?>
