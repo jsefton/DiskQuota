@@ -10,6 +10,7 @@ on VPS's or Local Machines.
 =====================================================
 Usuage
 
+<code>
 $path_name = realpath(dirname(__FILE__));
 $maximum_quota = 1000;
 
@@ -29,7 +30,7 @@ Array
 $free_space = $quota['free_space'];
 $used_space = $quota['used_space'];
 $percentage_used = $quota['percentage'];
-
+</code>
 =====================================================
 
 Other used for percentage can be used for a CSS progress bar by simply making 
